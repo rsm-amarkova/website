@@ -104,6 +104,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="./projects.html"> 
 <span class="menu-text">Projects</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./archive.html"> 
+<span class="menu-text">Archive</span></a>
+  </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -163,8 +167,8 @@ ul.task-list li input[type="checkbox"] {
 }
 
 .headshot {
-  width: 120px;
-  height: 120px;
+  width: 160px;
+  height: 160px;
   border-radius: 50%;
   object-fit: cover;
   margin-bottom: 1.25rem;
@@ -317,9 +321,145 @@ ul.task-list li input[type="checkbox"] {
   margin: 0;
 }
 
+/* ── NOW CARD ── */
+.now-card {
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1.5rem;
+}
+
+.now-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.now-live {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  display: inline-block;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.live-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.now-date-badge {
+  font-size: 0.75rem;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  padding: 0.15rem 0.65rem;
+  border-radius: 999px;
+}
+
+.now-project {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.2rem;
+}
+
+.now-subtitle {
+  font-size: 0.8rem;
+  color: var(--accent);
+  margin-bottom: 1.25rem;
+}
+
+.now-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.now-field-label {
+  display: block;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+
+.now-field-value {
+  font-size: 0.82rem;
+  color: #5a5a5a;
+  line-height: 1.6;
+}
+
+.now-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.now-tag {
+  font-size: 0.75rem;
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  background: transparent;
+}
+
+.now-tag.accent-tag {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ── ARCHIVE TABLE ── */
+.archive-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.archive-table th {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  font-weight: 600;
+  text-align: left;
+  padding: 0.6rem 1rem 0.6rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.archive-table td {
+  padding: 0.7rem 1rem 0.7rem 0;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  font-size: 0.875rem;
+}
+
+.archive-table .archive-tags {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
 @media (max-width: 680px) {
   .hero { grid-template-columns: 1fr; gap: 2rem; }
   .timeline-entry { grid-template-columns: 1fr; gap: 0.35rem; }
+  .now-fields { grid-template-columns: 1fr; }
 }
 </style>
 
@@ -330,7 +470,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
       <img src="images/Alina_Headshot.JPG" class="headshot" alt="Alina Markova">
       <p class="hero-headline">I study business analytics at UCSD because <span class="accent">I want to understand people through data,</span> not instead of them.</p>
-      <p class="hero-bio">Great seeing you here! You can find information about my background, experience, and projects. Feel free to explore and learn more about me. If you have any questions or would like to connect, please don't hesitate to reach out through the contact information provided. Thank you for visiting!.</p>
+      <p class="hero-bio">Great seeing you here! You can find information about my background, experience, and projects. Feel free to explore and learn more about me. If you have any questions or would like to connect, please don't hesitate to reach out through the contact information provided. Thank you for visiting!</p>
       <div class="cta-row">
         <a href="projects.html" class="btn btn-primary">View Projects</a>
         <a href="files/resume.pdf" class="btn btn-outline" download="">Download Resume</a>
@@ -370,6 +510,40 @@ ul.task-list li input[type="checkbox"] {
 
   <hr class="section-hr">
 
+  <!-- CURRENTLY -->
+  <p class="section-label">Currently</p>
+
+  <div class="now-card">
+    <div class="now-header">
+      <div class="now-live">
+        <span class="live-dot"></span>
+        <span class="live-label">Live</span>
+      </div>
+      <span class="now-date-badge">April 2026</span>
+    </div>
+    <div class="now-project">Petco Product Substitution Model</div>
+    <div class="now-subtitle">MSBA Capstone · Industry Partner Project</div>
+    <div class="now-fields">
+      <div>
+        <span class="now-field-label">Approach</span>
+        <span class="now-field-value">Researching substitution literature to ground a model in customer behavior rather than product similarity alone.</span>
+      </div>
+      <div>
+        <span class="now-field-label">Methodology</span>
+        <span class="now-field-value">Collaborative research with Petco data scientists. Building toward a behavior-driven substitution recommendation framework.</span>
+      </div>
+    </div>
+    <div class="now-tags">
+      <span class="now-tag accent-tag">Capstone</span>
+      <span class="now-tag">ML</span>
+      <span class="now-tag">SQL</span>
+      <span class="now-tag">Substitution</span>
+      <span class="now-tag">Literature Review</span>
+    </div>
+  </div>
+
+  <hr class="section-hr">
+
   <!-- EXPERIENCE -->
   <p class="section-label">Experience</p>
 
@@ -390,6 +564,30 @@ ul.task-list li input[type="checkbox"] {
       <p class="tl-desc">Embedded in a cross-functional team to analyze the customer acquisition funnel — identifying conversion drop-off points, building reporting dashboards, and surfacing data-driven recommendations to optimize channel performance.</p>
     </div>
   </div>
+
+  <hr class="section-hr">
+
+  <!-- ARCHIVE -->
+  <p class="section-label">Archive</p>
+
+  
+<table class="archive-table caption-top table">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Date</th>
+<th data-quarto-table-cell-role="th">Project</th>
+<th data-quarto-table-cell-role="th">Tags</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Early 2026</td>
+<td>Rent the Runway ML</td>
+<td class="archive-tags">NLP, scikit-learn</td>
+</tr>
+</tbody>
+</table>
+
 
 </div>
 

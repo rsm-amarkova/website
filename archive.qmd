@@ -1,0 +1,87 @@
+---
+title: "Archive"
+page-layout: full
+toc: false
+---
+
+```{=html}
+<style>
+:root {
+  --accent: #D4537E;
+  --muted: #8a8a8a;
+  --border: #e4e4e4;
+  --text: #1a1a1a;
+}
+
+#title-block-header { display: none !important; }
+
+.archive-wrap {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 5rem;
+}
+
+.archive-heading {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 0.5rem;
+}
+
+.archive-desc {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin: 0 0 2.5rem;
+}
+
+.archive-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.archive-table th {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  font-weight: 600;
+  text-align: left;
+  padding: 0.6rem 1rem 0.6rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.archive-table td {
+  padding: 0.75rem 1rem 0.75rem 0;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  font-size: 0.875rem;
+}
+
+.archive-table .archive-tags {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+</style>
+
+<div class="archive-wrap">
+  <h1 class="archive-heading">Archive</h1>
+  <p class="archive-desc">A running log of what I've worked on.</p>
+
+  <table class="archive-table">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Project</th>
+        <th>Tags</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Early 2026</td>
+        <td>Rent the Runway ML</td>
+        <td class="archive-tags">NLP, scikit-learn</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+```

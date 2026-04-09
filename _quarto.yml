@@ -12,6 +12,8 @@ website:
         text: Resume
       - href: projects.qmd
         text: Projects
+      - href: archive.qmd
+        text: Archive
 
 
 format:
