@@ -21,7 +21,7 @@ format:
       - brand
     css: styles.css
     toc: true
-
+    cache: false
 
 
 
