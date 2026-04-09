@@ -1,0 +1,7 @@
+---
+title: "Rent the Runway: A Case Study in Data-Driven Fashion"
+author: Alina Markova et al.
+date: December 2026
+image: images/renttherunway.png
+---
+

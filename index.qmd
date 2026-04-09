@@ -1,0 +1,13 @@
+---
+title: "Alina Markova"
+image: "images/Alina_Headshot.JPG"
+about:
+  template: jolla
+  links:
+    - icon: envelope
+      href: mailto:alina@markov.com
+    - icon: linkedin
+      href: https://www.linkedin.com/in/alinamarkova
+---
+
+Welcome to my website! Here you can find information about my background, experience, and projects. Feel free to explore and learn more about me. If you have any questions or would like to connect, please don't hesitate to reach out through the contact information provided. Thank you for visiting!
