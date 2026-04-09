@@ -37,6 +37,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
@@ -74,7 +75,7 @@ ul.task-list li input[type="checkbox"] {
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-fixed fullcontent quarto-light">
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -111,40 +112,299 @@ ul.task-list li input[type="checkbox"] {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     
 <!-- main -->
-<div class="quarto-about-jolla">
-  <img src="images/Alina_Headshot.JPG" class="about-image
-  round " style="height: 15em; width: 15em;">
- <header id="title-block-header" class="quarto-title-block default">
+<main class="content column-page" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Alina Markova</h1>
 </div>
-<div class="quarto-title-meta">
+
+
+
+<div class="quarto-title-meta column-page">
+
+    
+  
+    
   </div>
-</header><main class="content" id="quarto-document-content">
-<p>Welcome to my website! Here you can find information about my background, experience, and projects. Feel free to explore and learn more about me. If you have any questions or would like to connect, please don’t hesitate to reach out through the contact information provided. Thank you for visiting!</p>
+  
 
 
-</main> 
-  <hr class="about-sep">
-   <div class="about-links">
-  <a href="mailto:alina@markov.com" class="about-link" rel="" target="">
-    <i class="bi bi-envelope"></i>
-     <span class="about-link-text"></span>
-  </a>
-  <a href="https://www.linkedin.com/in/alinamarkova" class="about-link" rel="" target="">
-    <i class="bi bi-linkedin"></i>
-     <span class="about-link-text"></span>
-  </a>
+</header>
+
+
+<style>
+:root {
+  --accent: #D4537E;
+  --muted: #8a8a8a;
+  --border: #e4e4e4;
+  --text: #1a1a1a;
+}
+
+#title-block-header { display: none !important; }
+
+.page-wrap {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 5rem;
+}
+
+/* ── HERO ── */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3.5rem;
+  padding-bottom: 3rem;
+}
+
+.headshot {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1.25rem;
+  display: block;
+}
+
+.hero-headline {
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--text);
+  margin: 0 0 1rem;
+}
+
+.accent { color: var(--accent); }
+
+.hero-bio {
+  color: #5a5a5a;
+  font-size: 0.95rem;
+  line-height: 1.75;
+  margin: 0 0 1.75rem;
+}
+
+.cta-row {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.55rem 1.3rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-radius: 4px;
+  text-decoration: none;
+}
+.btn:hover { opacity: 0.82; text-decoration: none; }
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  border: 1px solid var(--accent);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+
+/* Stat grid */
+.stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.stat-box {
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1.1rem 1.25rem;
+}
+
+.stat-number {
+  display: block;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin-top: 0.25rem;
+  line-height: 1.4;
+}
+
+/* Skill chips */
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.chip {
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  background: transparent;
+  font-size: 0.78rem;
+  padding: 0.22rem 0.75rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* ── DIVIDER ── */
+.section-hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 3rem 0;
+}
+
+/* ── SECTION LABEL ── */
+.section-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  font-weight: 600;
+  margin: 0 0 1.75rem;
+}
+
+/* ── TIMELINE ── */
+.timeline-entry {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 1.75rem;
+  margin-bottom: 2.25rem;
+}
+
+.tl-date {
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.6;
+  padding-top: 0.15rem;
+}
+
+.tl-role {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0 0 0.15rem;
+}
+
+.tl-org {
+  font-size: 0.85rem;
+  color: var(--accent);
+  margin: 0 0 0.5rem;
+}
+
+.tl-desc {
+  font-size: 0.875rem;
+  color: #5a5a5a;
+  line-height: 1.65;
+  margin: 0;
+}
+
+@media (max-width: 680px) {
+  .hero { grid-template-columns: 1fr; gap: 2rem; }
+  .timeline-entry { grid-template-columns: 1fr; gap: 0.35rem; }
+}
+</style>
+
+<div class="page-wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div>
+      <img src="images/Alina_Headshot.JPG" class="headshot" alt="Alina Markova">
+      <p class="hero-headline">I study business analytics at UCSD because <span class="accent">I want to understand people through data,</span> not instead of them.</p>
+      <p class="hero-bio">Great seeing you here! You can find information about my background, experience, and projects. Feel free to explore and learn more about me. If you have any questions or would like to connect, please don't hesitate to reach out through the contact information provided. Thank you for visiting!.</p>
+      <div class="cta-row">
+        <a href="projects.html" class="btn btn-primary">View Projects</a>
+        <a href="files/resume.pdf" class="btn btn-outline" download="">Download Resume</a>
+      </div>
+    </div>
+    <div>
+      <div class="stat-grid">
+        <div class="stat-box">
+          <span class="stat-number">12,000</span>
+          <span class="stat-label">Hours of Higher Education</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-number">7</span>
+          <span class="stat-label">Projects — and counting</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-number">27%</span>
+          <span class="stat-label">Of Data Analysts Are Female</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-number">190 People</span>
+          <span class="stat-label">Cohort I Represent</span>
+        </div>
+      </div>
+      <div class="chip-row">
+        <span class="chip">Python</span>
+        <span class="chip">SQL</span>
+        <span class="chip">Google Analytics</span>
+        <span class="chip">Polars</span>
+        <span class="chip">Pandas</span>
+        <span class="chip">GenAI</span>
+        <span class="chip">Tableau</span>
+        <span class="chip">Power BI</span>
+      </div>
+    </div>
+  </div>
+
+  <hr class="section-hr">
+
+  <!-- EXPERIENCE -->
+  <p class="section-label">Experience</p>
+
+  <div class="timeline-entry">
+    <div class="tl-date">Jun 2024 – Jul 2025</div>
+    <div>
+      <p class="tl-role">FP&amp;A Analyst</p>
+      <p class="tl-org">Scientist.com</p>
+      <p class="tl-desc">Liaison connecting data science, finance, and accounting teams across open-ended ad-hoc analytical projects, translating quantitative findings into actionable financial insights.</p>
+    </div>
+  </div>
+
+  <div class="timeline-entry">
+    <div class="tl-date">Apr 2025 – Present</div>
+    <div>
+      <p class="tl-role">Marketing Analyst</p>
+      <p class="tl-org">Mercury Insurance</p>
+      <p class="tl-desc">Embedded in a cross-functional team to analyze the customer acquisition funnel — identifying conversion drop-off points, building reporting dashboards, and surfacing data-driven recommendations to optimize channel performance.</p>
+    </div>
+  </div>
+
 </div>
-</div>
- <!-- /main -->
+
+
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
     const isCodeAnnotation = (el) => {
       for (const clz of el.classList) {
         if (clz.startsWith('code-annotation-')) {                     
