@@ -1,5 +1,6 @@
 ---
 title: "Rent the Runway: A Case Study in Data-Driven Fashion"
+image: ../../images/renttherunway/renttherunway.jpeg
 page-layout: full
 toc: false
 ---
