@@ -166,14 +166,35 @@ ul.task-list li input[type="checkbox"] {
   padding-bottom: 3rem;
 }
 
+.headshot-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 1.25rem;
+}
+
 .headshot {
   width: 160px;
   height: 160px;
   border-radius: 50%;
   object-fit: cover;
-  margin-bottom: 1.25rem;
   display: block;
+  flex-shrink: 0;
 }
+
+.headshot-icons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 10px;
+}
+
+.icon-link {
+  display: block;
+  line-height: 1;
+  color: #D4537E;
+}
+.icon-link:hover { opacity: 0.65; }
 
 .hero-headline {
   font-size: 1.75rem;
@@ -468,7 +489,17 @@ ul.task-list li input[type="checkbox"] {
   <!-- HERO -->
   <div class="hero">
     <div>
-      <img src="images/Alina_Headshot.JPG" class="headshot" alt="Alina Markova">
+      <div class="headshot-row">
+        <img src="images/Alina_Headshot.JPG" class="headshot" alt="Alina Markova">
+        <div class="headshot-icons">
+          <a href="https://www.linkedin.com/in/alinamarkova" target="_blank" class="icon-link" aria-label="LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="#D4537E"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path></svg>
+          </a>
+          <a href="mailto:alina@markov.com" class="icon-link" aria-label="Email">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="#D4537E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
+          </a>
+        </div>
+      </div>
       <p class="hero-headline">I study business analytics at UCSD because <span class="accent">I want to understand people through data,</span> not instead of them.</p>
       <p class="hero-bio">Great seeing you here! You can find information about my background, experience, and projects. Feel free to explore and learn more about me. If you have any questions or would like to connect, please don't hesitate to reach out through the contact information provided. Thank you for visiting!</p>
       <div class="cta-row">
