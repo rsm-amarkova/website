@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Alina Markova">
-<meta name="dcterms.date" content="2026-04-15">
 
-<title>A/B Testing a Call to Action – Alina Markova</title>
+<title>My Projects – Alina Markova</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -28,23 +26,25 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
-<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-158031087360bce0ff56dc785ce39e06.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-listing/list.min.js"></script>
+<script src="site_libs/quarto-listing/quarto-listing.js"></script>
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-158031087360bce0ff56dc785ce39e06.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -72,6 +72,35 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script>
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-title','listing-author','listing-image','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: ["listing-title","listing-author","listing-image","listing-description"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -103,7 +132,7 @@ window.Quarto = {
 };
 </script>
 
-<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -113,7 +142,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../../index.html">
+    <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Alina Markova</span>
     </a>
   </div>
@@ -124,23 +153,23 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../index.html"> 
+    <a class="nav-link" href="./index.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../resume.html"> 
+    <a class="nav-link" href="./resume.html"> 
 <span class="menu-text">Resume</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../projects.html"> 
+    <a class="nav-link active" href="./projects.html" aria-current="page"> 
 <span class="menu-text">Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../blog/index.html"> 
+    <a class="nav-link" href="./blog/index.html"> 
 <span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../archive.html"> 
+    <a class="nav-link" href="./archive.html"> 
 <span class="menu-text">Archive</span></a>
   </li>  
 </ul>
@@ -154,49 +183,22 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#the-ab-test-as-a-statistical-problem" id="toc-the-ab-test-as-a-statistical-problem" class="nav-link" data-scroll-target="#the-ab-test-as-a-statistical-problem">The A/B Test as a Statistical Problem</a></li>
-  <li><a href="#simulating-data" id="toc-simulating-data" class="nav-link" data-scroll-target="#simulating-data">Simulating Data</a></li>
-  <li><a href="#the-law-of-large-numbers" id="toc-the-law-of-large-numbers" class="nav-link" data-scroll-target="#the-law-of-large-numbers">The Law of Large Numbers</a></li>
-  <li><a href="#bootstrap-standard-errors" id="toc-bootstrap-standard-errors" class="nav-link" data-scroll-target="#bootstrap-standard-errors">Bootstrap Standard Errors</a></li>
-  <li><a href="#the-central-limit-theorem" id="toc-the-central-limit-theorem" class="nav-link" data-scroll-target="#the-central-limit-theorem">The Central Limit Theorem</a></li>
-  <li><a href="#hypothesis-testing" id="toc-hypothesis-testing" class="nav-link" data-scroll-target="#hypothesis-testing">Hypothesis Testing</a></li>
-  <li><a href="#the-t-test-as-a-regression" id="toc-the-t-test-as-a-regression" class="nav-link" data-scroll-target="#the-t-test-as-a-regression">The T-Test as a Regression</a></li>
-  <li><a href="#the-problem-with-peeking" id="toc-the-problem-with-peeking" class="nav-link" data-scroll-target="#the-problem-with-peeking">The Problem with Peeking</a></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">A/B Testing a Call to Action</h1>
-<p class="subtitle lead">Simulating Key Ideas from Classical Frequentist Statistics</p>
+<h1 class="title">My Projects</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Alina Markova </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">April 15, 2026</p>
-    </div>
-  </div>
   
     
   </div>
@@ -206,90 +208,57 @@ window.Quarto = {
 </header>
 
 
-<section id="introduction" class="level2">
-<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>I run a website with a landing page that invites visitors to sign up for a newsletter. A small but important design decision is how that invitation is phrased — the wording of a call to action (CTA) can influence whether users decide to engage.</p>
-<p>To evaluate this, I consider two versions of the CTA: - CTA A: “Sign up for our newsletter here!” - CTA B: “Stay up to date by signing up!”</p>
-<p>Rather than relying on intuition, I use an A/B test to determine which version performs better. In an A/B test, visitors are randomly assigned to see one of the two CTAs. I then compare the proportion of users who sign up in each group. Because the assignment is random, differences in sign-up rates can be attributed to the CTA itself.</p>
-</section>
-<section id="the-ab-test-as-a-statistical-problem" class="level2">
-<h2 class="anchored" data-anchor-id="the-ab-test-as-a-statistical-problem">The A/B Test as a Statistical Problem</h2>
-<p>Each visitor either signs up or does not sign up, so we can model their outcome as a Bernoulli random variable with parameter <span class="math inline">\(\pi\)</span>, the probability of signing up.</p>
-<p>Because the CTA shown to a visitor may affect their behavior, we allow this probability to differ between groups. Let <span class="math inline">\(\pi_A\)</span> denote the probability of signing up for visitors who see CTA A, and <span class="math inline">\(\pi_B\)</span> for those who see CTA B. Each observation is therefore either 1 (sign-up) or 0 (no sign-up).</p>
-<p>The quantity of interest is the difference in these probabilities:</p>
-<p><span class="math display">\[
-\theta = \pi_A - \pi_B
-\]</span></p>
-<p>This measures how much more effective one CTA is compared to the other.</p>
-<p>We estimate <span class="math inline">\(\theta\)</span> using the difference in sample means:</p>
-<p><span class="math display">\[
-\hat{\theta} = \bar{X}_A - \bar{X}_B
-\]</span></p>
-<p>Since each observation is binary, the sample mean in each group is simply the proportion of visitors who signed up. That is, <span class="math inline">\(\bar{X}_A = \hat{\pi}_A\)</span> and <span class="math inline">\(\bar{X}_B = \hat{\pi}_B\)</span>.</p>
-</section>
-<section id="simulating-data" class="level2">
-<h2 class="anchored" data-anchor-id="simulating-data">Simulating Data</h2>
-<p>In practice, we would not know the true values of <span class="math inline">\(\pi_A\)</span> and <span class="math inline">\(\pi_B\)</span>. However, in a simulation setting we can choose these values ourselves, which allows us to study how well our estimator performs when we know the truth.</p>
-<p>For this exercise, suppose that <span class="math inline">\(\pi_A = 0.22\)</span> and <span class="math inline">\(\pi_B = 0.18\)</span>. This means the true difference is <span class="math inline">\(\theta = 0.04\)</span>.</p>
-<p>Using these values, I simulate 1,000 observations from each Bernoulli distribution, representing 1,000 visitors in each group. These simulated data will be used throughout the rest of the analysis.</p>
-</section>
-<section id="the-law-of-large-numbers" class="level2">
-<h2 class="anchored" data-anchor-id="the-law-of-large-numbers">The Law of Large Numbers</h2>
-<p>The Law of Large Numbers states that as the sample size increases, the sample mean converges to the true population mean. In this setting, this means that our estimator <span class="math inline">\(\hat{\theta} = \bar{X}_A - \bar{X}_B\)</span> should get closer to the true value <span class="math inline">\(\theta\)</span> as we observe more data.</p>
-<p>The plot shows the cumulative average of the difference between the two groups as more observations are included. When the number of observations is small, the estimate is quite noisy and fluctuates substantially. However, as the sample size increases, the estimate stabilizes and converges toward the true value of 0.04.</p>
-<p>The key takeaway is that larger samples reduce randomness and improve the accuracy of our estimates.</p>
-</section>
-<section id="bootstrap-standard-errors" class="level2">
-<h2 class="anchored" data-anchor-id="bootstrap-standard-errors">Bootstrap Standard Errors</h2>
-<p>While a point estimate gives us a best guess for <span class="math inline">\(\theta\)</span>, it does not tell us how precise that estimate is. To quantify uncertainty, we compute a standard error and construct a confidence interval.</p>
-<p>The bootstrap is a resampling method that allows us to estimate the variability of a statistic without relying on a closed-form formula. The idea is to repeatedly sample (with replacement) from the observed data, compute the statistic for each resample, and measure how much those estimates vary.</p>
-<p>Using 1,000 bootstrap resamples, I obtain a distribution of estimates of <span class="math inline">\(\theta\)</span> and compute their standard deviation, which serves as the bootstrapped standard error.</p>
-<p>I also compute the analytical standard error:</p>
-<p><span class="math display">\[
-SE(\hat\theta) = \sqrt{\frac{\hat\pi_A(1 - \hat\pi_A)}{n_A} + \frac{\hat\pi_B(1 - \hat\pi_B)}{n_B}}
-\]</span></p>
-<p>The two standard errors are very similar, which provides reassurance that both methods are capturing the same underlying variability.</p>
-<p>Using the bootstrap standard error, I construct a 95% confidence interval for <span class="math inline">\(\theta\)</span>. This interval represents a range of plausible values for the true difference in sign-up rates.</p>
-</section>
-<section id="the-central-limit-theorem" class="level2">
-<h2 class="anchored" data-anchor-id="the-central-limit-theorem">The Central Limit Theorem</h2>
-<p>The Central Limit Theorem states that regardless of the underlying distribution, the sampling distribution of the sample mean becomes approximately Normal as the sample size increases.</p>
-<p>To illustrate this, I simulate the distribution of <span class="math inline">\(\hat{\theta}\)</span> for different sample sizes. For small samples, the distribution can appear irregular or slightly skewed. As the sample size increases, the distribution becomes smoother and more symmetric.</p>
-<p>This demonstrates that for sufficiently large samples, the distribution of <span class="math inline">\(\hat{\theta}\)</span> is well-approximated by a Normal distribution, which is crucial for statistical inference.</p>
-</section>
-<section id="hypothesis-testing" class="level2">
-<h2 class="anchored" data-anchor-id="hypothesis-testing">Hypothesis Testing</h2>
-<p>A hypothesis test allows us to formally assess whether the observed difference between the two CTAs is statistically significant.</p>
-<p>We test the null hypothesis <span class="math inline">\(H_0: \theta = 0\)</span>, which states that there is no difference between the CTAs, against the alternative <span class="math inline">\(H_1: \theta \neq 0\)</span>.</p>
-<p>To do this, we compute the standardized test statistic:</p>
-<p><span class="math display">\[
-z = \frac{\hat\theta - 0}{SE(\hat\theta)}
-\]</span></p>
-<p>By the Central Limit Theorem, <span class="math inline">\(\hat{\theta}\)</span> is approximately Normally distributed for large samples. Under the null hypothesis, its mean is 0. Dividing by its standard deviation produces a statistic that is approximately standard Normal.</p>
-<p>This allows us to compute a p-value, which measures how extreme our observed result is under the null hypothesis. A small p-value provides evidence against <span class="math inline">\(H_0\)</span>.</p>
-<p>Although this procedure is often referred to as a t-test, in this setting it is more accurately described as a z-test. The classical t-test relies on Normal data and produces an exact t-distribution, whereas here we rely on large-sample Normal approximations. In practice, the distinction is minor for large samples.</p>
-</section>
-<section id="the-t-test-as-a-regression" class="level2">
-<h2 class="anchored" data-anchor-id="the-t-test-as-a-regression">The T-Test as a Regression</h2>
-<p>The two-sample test can be expressed as a linear regression by combining the data into a single dataset. Let <span class="math inline">\(Y_i\)</span> be the outcome (1 if the visitor signs up, 0 otherwise), and let <span class="math inline">\(D_i\)</span> indicate whether the visitor saw CTA A.</p>
-<p>We then estimate:</p>
-<p><span class="math display">\[
-Y_i = \beta_0 + \beta_1 D_i + \varepsilon_i
-\]</span></p>
-<p>The coefficients have intuitive interpretations. <span class="math inline">\(\beta_0\)</span> is the average outcome for group B, which estimates <span class="math inline">\(\pi_B\)</span>. The sum <span class="math inline">\(\beta_0 + \beta_1\)</span> is the average outcome for group A, which estimates <span class="math inline">\(\pi_A\)</span>. Therefore, <span class="math inline">\(\beta_1\)</span> represents the difference <span class="math inline">\(\pi_A - \pi_B = \theta\)</span>.</p>
-<p>The estimated coefficient <span class="math inline">\(\hat{\beta}_1\)</span> is numerically identical to <span class="math inline">\(\hat{\theta}\)</span>, and the associated test statistics are very similar. This equivalence is useful because regression provides a flexible framework for extending the analysis.</p>
-</section>
-<section id="the-problem-with-peeking" class="level2">
-<h2 class="anchored" data-anchor-id="the-problem-with-peeking">The Problem with Peeking</h2>
-<p>In practice, there is often a temptation to check results early and stop the experiment if a significant result appears. For example, one might test for significance after every 100 observations per group and stop as soon as a p-value falls below 0.05.</p>
-<p>This approach is problematic because each test carries a chance of a false positive. While a single test at the 5% level has a 5% chance of incorrectly rejecting the null hypothesis, conducting multiple tests increases the probability that at least one test will produce a false positive.</p>
-<p>Simulations show that when repeatedly peeking at the data, the overall false positive rate can be substantially higher than 5%. This means we are more likely to incorrectly conclude that one CTA is better when in fact there is no real difference.</p>
-<p>The key lesson is that repeated testing without adjustment inflates the Type I error rate, and careful experimental design is necessary to avoid misleading conclusions.</p>
 
 
-</section>
 
-</main> <!-- /main -->
+
+<div class="quarto-listing quarto-listing-container-grid" id="listing-listing">
+<div class="list grid quarto-listing-cols-3">
+<div class="g-col-1" data-index="0" data-listing-file-modified-sort="1775876048339" data-listing-reading-time-sort="11" data-listing-word-count-sort="2031">
+<a href="./projects/project1/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="./images/renttherunway/renttherunway2.jpeg" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Rent the Runway: A Case Study in Data-Driven Fashion
+</h5>
+<div class="card-text listing-description delink">
+<!-- desc(5A0113B34292)[max=175]:projects/project1/index.html -->
+</div>
+<div class="card-attribution card-text-small start">
+<div class="listing-author">
+
+</div>
+</div>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="1" data-listing-file-modified-sort="1775780284741" data-listing-reading-time-sort="10" data-listing-word-count-sort="1994">
+<a href="./projects/project2/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="./images/cguplift/cguplift.jpeg" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Uplift - Stop targeting people who were going to buy anyway.
+</h5>
+<div class="card-text listing-description delink">
+<!-- desc(5A0113B34292)[max=175]:projects/project2/index.html -->
+</div>
+<div class="card-attribution card-text-small start">
+<div class="listing-author">
+
+</div>
+</div>
+</div>
+</div></a>
+</div>
+</div>
+<div class="listing-no-matching d-none">No matching items</div>
+</div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
