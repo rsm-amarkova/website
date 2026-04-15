@@ -2,7 +2,7 @@
 title: A/B Testing a Call to Action
 subtitle: "Simulating Key Ideas from Classical Frequentist Statistics"
 author: Alina Markova
-date: April 15, 2026
+date: 2026-04-15
 ---
 
 ## Introduction
