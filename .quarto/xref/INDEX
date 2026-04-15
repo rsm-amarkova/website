@@ -19,5 +19,8 @@
   },
   "archive.qmd": {
     "archive.html": "f90ee4f9"
+  },
+  "blog/ab_testing/index.qmd": {
+    "index.html": "d9d77dbb"
   }
 }

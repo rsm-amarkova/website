@@ -1,0 +1,130 @@
+---
+title: A/B Testing a Call to Action
+subtitle: "Simulating Key Ideas from Classical Frequentist Statistics"
+author: Alina Markova
+date: April 15, 2026
+---
+
+## Introduction
+
+I run a website with a landing page that invites visitors to sign up for a newsletter. A small but important design decision is how that invitation is phrased — the wording of a call to action (CTA) can influence whether users decide to engage.
+
+To evaluate this, I consider two versions of the CTA:
+- CTA A: “Sign up for our newsletter here!”
+- CTA B: “Stay up to date by signing up!”
+
+Rather than relying on intuition, I use an A/B test to determine which version performs better. In an A/B test, visitors are randomly assigned to see one of the two CTAs. I then compare the proportion of users who sign up in each group. Because the assignment is random, differences in sign-up rates can be attributed to the CTA itself.
+
+
+## The A/B Test as a Statistical Problem
+
+Each visitor either signs up or does not sign up, so we can model their outcome as a Bernoulli random variable with parameter $\pi$, the probability of signing up.
+
+Because the CTA shown to a visitor may affect their behavior, we allow this probability to differ between groups. Let $\pi_A$ denote the probability of signing up for visitors who see CTA A, and $\pi_B$ for those who see CTA B. Each observation is therefore either 1 (sign-up) or 0 (no sign-up).
+
+The quantity of interest is the difference in these probabilities:
+
+$$
+\theta = \pi_A - \pi_B
+$$
+
+This measures how much more effective one CTA is compared to the other.
+
+We estimate $\theta$ using the difference in sample means:
+
+$$
+\hat{\theta} = \bar{X}_A - \bar{X}_B
+$$
+
+Since each observation is binary, the sample mean in each group is simply the proportion of visitors who signed up. That is, $\bar{X}_A = \hat{\pi}_A$ and $\bar{X}_B = \hat{\pi}_B$.
+
+
+## Simulating Data
+
+In practice, we would not know the true values of $\pi_A$ and $\pi_B$. However, in a simulation setting we can choose these values ourselves, which allows us to study how well our estimator performs when we know the truth.
+
+For this exercise, suppose that $\pi_A = 0.22$ and $\pi_B = 0.18$. This means the true difference is $\theta = 0.04$.
+
+Using these values, I simulate 1,000 observations from each Bernoulli distribution, representing 1,000 visitors in each group. These simulated data will be used throughout the rest of the analysis.
+
+
+## The Law of Large Numbers
+
+The Law of Large Numbers states that as the sample size increases, the sample mean converges to the true population mean. In this setting, this means that our estimator $\hat{\theta} = \bar{X}_A - \bar{X}_B$ should get closer to the true value $\theta$ as we observe more data.
+
+The plot shows the cumulative average of the difference between the two groups as more observations are included. When the number of observations is small, the estimate is quite noisy and fluctuates substantially. However, as the sample size increases, the estimate stabilizes and converges toward the true value of 0.04.
+
+The key takeaway is that larger samples reduce randomness and improve the accuracy of our estimates.
+
+
+## Bootstrap Standard Errors
+
+While a point estimate gives us a best guess for $\theta$, it does not tell us how precise that estimate is. To quantify uncertainty, we compute a standard error and construct a confidence interval.
+
+The bootstrap is a resampling method that allows us to estimate the variability of a statistic without relying on a closed-form formula. The idea is to repeatedly sample (with replacement) from the observed data, compute the statistic for each resample, and measure how much those estimates vary.
+
+Using 1,000 bootstrap resamples, I obtain a distribution of estimates of $\theta$ and compute their standard deviation, which serves as the bootstrapped standard error.
+
+I also compute the analytical standard error:
+
+$$
+SE(\hat\theta) = \sqrt{\frac{\hat\pi_A(1 - \hat\pi_A)}{n_A} + \frac{\hat\pi_B(1 - \hat\pi_B)}{n_B}}
+$$
+
+The two standard errors are very similar, which provides reassurance that both methods are capturing the same underlying variability.
+
+Using the bootstrap standard error, I construct a 95% confidence interval for $\theta$. This interval represents a range of plausible values for the true difference in sign-up rates.
+
+
+## The Central Limit Theorem
+
+The Central Limit Theorem states that regardless of the underlying distribution, the sampling distribution of the sample mean becomes approximately Normal as the sample size increases.
+
+To illustrate this, I simulate the distribution of $\hat{\theta}$ for different sample sizes. For small samples, the distribution can appear irregular or slightly skewed. As the sample size increases, the distribution becomes smoother and more symmetric.
+
+This demonstrates that for sufficiently large samples, the distribution of $\hat{\theta}$ is well-approximated by a Normal distribution, which is crucial for statistical inference.
+
+
+## Hypothesis Testing
+
+A hypothesis test allows us to formally assess whether the observed difference between the two CTAs is statistically significant.
+
+We test the null hypothesis $H_0: \theta = 0$, which states that there is no difference between the CTAs, against the alternative $H_1: \theta \neq 0$.
+
+To do this, we compute the standardized test statistic:
+
+$$
+z = \frac{\hat\theta - 0}{SE(\hat\theta)}
+$$
+
+By the Central Limit Theorem, $\hat{\theta}$ is approximately Normally distributed for large samples. Under the null hypothesis, its mean is 0. Dividing by its standard deviation produces a statistic that is approximately standard Normal.
+
+This allows us to compute a p-value, which measures how extreme our observed result is under the null hypothesis. A small p-value provides evidence against $H_0$.
+
+Although this procedure is often referred to as a t-test, in this setting it is more accurately described as a z-test. The classical t-test relies on Normal data and produces an exact t-distribution, whereas here we rely on large-sample Normal approximations. In practice, the distinction is minor for large samples.
+
+
+## The T-Test as a Regression
+
+The two-sample test can be expressed as a linear regression by combining the data into a single dataset. Let $Y_i$ be the outcome (1 if the visitor signs up, 0 otherwise), and let $D_i$ indicate whether the visitor saw CTA A.
+
+We then estimate:
+
+$$
+Y_i = \beta_0 + \beta_1 D_i + \varepsilon_i
+$$
+
+The coefficients have intuitive interpretations. $\beta_0$ is the average outcome for group B, which estimates $\pi_B$. The sum $\beta_0 + \beta_1$ is the average outcome for group A, which estimates $\pi_A$. Therefore, $\beta_1$ represents the difference $\pi_A - \pi_B = \theta$.
+
+The estimated coefficient $\hat{\beta}_1$ is numerically identical to $\hat{\theta}$, and the associated test statistics are very similar. This equivalence is useful because regression provides a flexible framework for extending the analysis.
+
+
+## The Problem with Peeking
+
+In practice, there is often a temptation to check results early and stop the experiment if a significant result appears. For example, one might test for significance after every 100 observations per group and stop as soon as a p-value falls below 0.05.
+
+This approach is problematic because each test carries a chance of a false positive. While a single test at the 5% level has a 5% chance of incorrectly rejecting the null hypothesis, conducting multiple tests increases the probability that at least one test will produce a false positive.
+
+Simulations show that when repeatedly peeking at the data, the overall false positive rate can be substantially higher than 5%. This means we are more likely to incorrectly conclude that one CTA is better when in fact there is no real difference.
+
+The key lesson is that repeated testing without adjustment inflates the Type I error rate, and careful experimental design is necessary to avoid misleading conclusions.
