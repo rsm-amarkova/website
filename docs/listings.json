@@ -4,5 +4,12 @@
     "items": [
       "/blog/ab_testing/index.html"
     ]
+  },
+  {
+    "listing": "/projects.html",
+    "items": [
+      "/projects/project1/index.html",
+      "/projects/project2/index.html"
+    ]
   }
 ]
