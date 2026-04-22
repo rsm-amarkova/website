@@ -25,5 +25,8 @@
   },
   "blog/index.qmd": {
     "index.html": "8d90bbb9"
+  },
+  "blog/diff_diff/index.qmd": {
+    "index.html": "011e30f0"
   }
 }

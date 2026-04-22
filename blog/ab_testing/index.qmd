@@ -40,7 +40,7 @@ Since each observation is 0 or 1, the sample mean is simply the fraction of visi
 
 In a real experiment, $\pi_A$ and $\pi_B$ are unknown. But for this exercise, we set them ourselves so we can study how our estimator behaves when we know the truth. Suppose $\pi_A = 0.22$ and $\pi_B = 0.18$, making the true difference $\theta = 0.04$ — CTA A is slightly better.
 
-```python
+```{python}
 import numpy as np
 np.random.seed(42)
 
@@ -63,7 +63,7 @@ The **Law of Large Numbers** (LLN) tells us that as sample size grows, the sampl
 
 To see this in action, I compute the element-wise differences between the CTA A and CTA B draws, then plot the running (cumulative) average of those differences as sample size grows.
 
-```python
+```{python}
 diffs = draws_A - draws_B
 cumulative_avg = np.cumsum(diffs) / np.arange(1, n + 1)
 ```
@@ -108,7 +108,7 @@ With only a handful of observations, the running average is noisy and swings aro
 
 A point estimate alone isn't enough — we also want to know how precise it is. The **bootstrap** is a resampling method that estimates variability without requiring a closed-form formula. The idea: repeatedly resample (with replacement) from observed data, recompute the statistic each time, and use the standard deviation of those resampled statistics as the estimated standard error.
 
-```python
+```{python}
 B = 1000
 bootstrap_thetas = np.empty(B)
 
@@ -223,7 +223,7 @@ By the CLT, $z \overset{\cdot}{\sim} N(0,1)$ under $H_0$ — so we know the dist
 
 **A note on "t-test" vs. z-test:** This setup is sometimes called a t-test, but that's a loose use of the term. A classical t-test assumes Normal data and exact t-distributed test statistics. Our data are Bernoulli, not Normal, so there's no exact t-distribution result here. The CLT gives us approximate Normality, and since we're estimating the SE from data, what we're really running is closer to a z-test. For large samples, the t and Normal distributions are nearly identical — so the distinction has little practical consequence, but it's worth understanding why.
 
-```python
+```{python}
 se = np.sqrt(
     pi_A_hat * (1 - pi_A_hat) / n + pi_B_hat * (1 - pi_B_hat) / n
 )
@@ -257,7 +257,7 @@ $$Y_i = \beta_0 + \beta_1 D_i + \varepsilon_i$$
 
 The coefficient $\beta_0$ is the mean of the B group ($\hat{\pi}_B$), and $\beta_0 + \beta_1$ is the mean of the A group ($\hat{\pi}_A$). So $\beta_1 = \pi_A - \pi_B = \theta$ — the OLS estimate $\hat{\beta}_1$ is numerically identical to $\hat{\theta}$.
 
-```python
+```{python}
 import statsmodels.api as sm
 
 Y = np.concatenate([draws_A, draws_B])
@@ -307,7 +307,7 @@ This is a problem. A single test at $\alpha = 0.05$ has a 5% false positive rate
 
 To quantify this, I simulate a world where the null is actually true ($\pi_A = \pi_B = 0.20$, so $\theta = 0$), and measure how often the peeking strategy incorrectly rejects $H_0$.
 
-```python
+```{python}
 from scipy.stats import norm
 
 def run_peeking_experiment(pi_A=0.20, pi_B=0.20, n_max=1000, step=100):

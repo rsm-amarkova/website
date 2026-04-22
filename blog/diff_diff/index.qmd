@@ -1,0 +1,281 @@
+---
+title: "Replication of Card and Krueger (1994)"
+subtitle: "Minimum Wages and Employment: A Case Study of the Fast-Food Industry in New Jersey and Pennsylvania"
+author: "Alina Markova"
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: true
+    theme: cosmo
+    fig-width: 8
+    fig-height: 5
+---
+
+```{python}
+#| echo: false
+#| output: false
+
+import pandas as pd
+import numpy as np
+import io, zipfile, urllib.request
+import statsmodels.formula.api as smf
+import warnings
+warnings.filterwarnings('ignore')
+
+# ── Load data ──────────────────────────────────────────────────────────────────
+url = "https://davidcard.berkeley.edu/data_sets/njmin.zip"
+col_names = [
+    "sheet", "chain", "co_owned", "state",
+    "southj", "centralj", "northj", "pa1", "pa2", "shore",
+    "ncalls", "empft", "emppt", "nmgrs", "wage_st", "inctime",
+    "firstinc", "bonus", "pctaff", "meals", "open", "hrsopen",
+    "psoda", "pfry", "pentree", "nregs", "nregs11",
+    "type2", "status2", "date2", "ncalls2",
+    "empft2", "emppt2", "nmgrs2", "wage_st2", "inctime2",
+    "firstinc2", "special2", "meals2", "open2r", "hrsopen2",
+    "psoda2", "pfry2", "pentree2", "nregs2", "nregs112"
+]
+
+resp = urllib.request.urlopen(url)
+zf = zipfile.ZipFile(io.BytesIO(resp.read()))
+raw = zf.read("public.dat").decode("latin-1")
+
+df = pd.read_csv(
+    io.StringIO(raw),
+    delim_whitespace=True,
+    header=None,
+    names=col_names,
+    na_values="."
+)
+
+# ── Construct variables ────────────────────────────────────────────────────────
+df["fte1"] = df["empft"]  + 0.5 * df["emppt"]  + df["nmgrs"]
+df["fte2"] = df["empft2"] + 0.5 * df["emppt2"] + df["nmgrs2"]
+df["nj"]   = (df["state"] == 1).astype(int)
+
+for c in [1, 2, 3, 4]:
+    df[f"chain_{c}"] = (df["chain"] == c).astype(int)
+
+df["co_owned"] = df["co_owned"].fillna(0)
+df_bal = df.dropna(subset=["fte1", "fte2"]).copy()
+
+# ── Table 2 variables ──────────────────────────────────────────────────────────
+df_bal["pctft1"]  = df_bal["empft"] / (df_bal["empft"] + df_bal["emppt"].replace(0, np.nan))
+df_bal["wage425"] = (df_bal["wage_st"] == 4.25).astype(float)
+
+def ms(series):
+    s = series.dropna()
+    return f"{s.mean():.3f} ({s.sem():.3f})"
+
+pa = df_bal[df_bal["nj"] == 0]
+nj = df_bal[df_bal["nj"] == 1]
+
+t2_fte_pa   = ms(pa["fte1"]);      t2_fte_nj   = ms(nj["fte1"])
+t2_pctft_pa = ms(pa["pctft1"]);   t2_pctft_nj = ms(nj["pctft1"])
+t2_wage_pa  = ms(pa["wage_st"]);  t2_wage_nj  = ms(nj["wage_st"])
+t2_w425_pa  = ms(pa["wage425"]);  t2_w425_nj  = ms(nj["wage425"])
+t2_soda_pa  = ms(pa["psoda"]);    t2_soda_nj  = ms(nj["psoda"])
+t2_fry_pa   = ms(pa["pfry"]);     t2_fry_nj   = ms(nj["pfry"])
+t2_hrs_pa   = ms(pa["hrsopen"]); t2_hrs_nj   = ms(nj["hrsopen"])
+t2_own_pa   = ms(pa["co_owned"]); t2_own_nj  = ms(nj["co_owned"])
+
+n_pa = int((df_bal["nj"] == 0).sum())
+n_nj = int((df_bal["nj"] == 1).sum())
+
+# ── Table 3 values ─────────────────────────────────────────────────────────────
+def mean_se(series):
+    s = series.dropna()
+    return s.mean(), s.sem()
+
+pa1_m, pa1_se = mean_se(pa["fte1"])
+pa2_m, pa2_se = mean_se(pa["fte2"])
+nj1_m, nj1_se = mean_se(nj["fte1"])
+nj2_m, nj2_se = mean_se(nj["fte2"])
+
+pa_chg    = pa2_m - pa1_m
+nj_chg    = nj2_m - nj1_m
+pa_chg_se = (pa["fte2"] - pa["fte1"]).dropna().sem()
+nj_chg_se = (nj["fte2"] - nj["fte1"]).dropna().sem()
+
+nj_diff = (nj["fte2"] - nj["fte1"]).dropna()
+pa_diff = (pa["fte2"] - pa["fte1"]).dropna()
+did     = nj_chg - pa_chg
+did_se  = np.sqrt(nj_diff.var()/len(nj_diff) + pa_diff.var()/len(pa_diff))
+
+def f2(x): return f"{x:.2f}"
+def fse2(x): return f"({x:.2f})"
+
+# ── Table 4 regression ─────────────────────────────────────────────────────────
+df_reg = df_bal.copy()
+df_reg["delta_fte"] = df_reg["fte2"] - df_reg["fte1"]
+
+m1 = smf.ols("delta_fte ~ nj", data=df_reg.dropna(subset=["delta_fte"])).fit()
+m2 = smf.ols(
+    "delta_fte ~ nj + chain_2 + chain_3 + chain_4 + co_owned",
+    data=df_reg.dropna(subset=["delta_fte"])
+).fit()
+
+def rc(model, var):
+    return f"{model.params[var]:.3f} ({model.bse[var]:.3f})"
+```
+
+## Introduction
+
+Does raising the minimum wage kill jobs? For decades, the standard answer in economics was yes -- basic supply-and-demand logic predicts that a binding price floor on labor should reduce employment. Card and Krueger (1994) challenged that consensus head-on.
+
+Their setup was clean: on April 1, 1992, New Jersey raised its minimum wage from \$4.25 to \$5.05 per hour. Pennsylvania, right next door, left its minimum wage unchanged. Card and Krueger surveyed fast-food restaurants in both states before and after the increase, then compared employment trends across the "treatment" state (NJ) and the "control" state (PA).
+
+The key insight is that New Jersey and Pennsylvania share a border, similar labor markets, and similar fast-food industries. Any aggregate shocks -- a recession, a regional slowdown -- should affect both states roughly equally. That makes Pennsylvania a credible counterfactual: what would have happened to NJ employment if the wage hadn't gone up?
+
+This is a **difference-in-differences** design. Instead of comparing NJ before vs. after (which conflates the wage increase with any other time trend), or NJ vs. PA at a single point in time (which conflates the wage effect with any pre-existing differences), DiD takes the difference of differences:
+
+$$
+\hat{\tau}_{DiD} = (\bar{Y}_{NJ,\text{after}} - \bar{Y}_{NJ,\text{before}}) - (\bar{Y}_{PA,\text{after}} - \bar{Y}_{PA,\text{before}})
+$$
+
+The parallel trends assumption -- that NJ and PA employment would have moved together absent the policy -- is what licenses a causal interpretation. It's not testable directly, but the geography and industry focus make it more plausible than most natural experiments.
+
+What did they find? Employment in New Jersey *increased* relative to Pennsylvania after the minimum wage hike. The result was surprising, influential, and controversial enough to help reshape how economists think about labor markets.
+
+Below, I replicate Table 2 (summary statistics), Table 3 (the core DiD estimate), and Table 4 column i (OLS regression). As a bonus, I visualize the parallel trends logic directly -- something the paper presents only in tabular form.
+
+---
+
+## Data
+
+The dataset is available from [David Card's website](https://davidcard.berkeley.edu/data_sets.html). The raw file is a space-delimited `.dat` file with 46 columns documented in the accompanying codebook. The sample used throughout is the balanced panel: restaurants observed in both wave 1 (February/March 1992, before the wage increase) and wave 2 (November/December 1992, after). That gives us `{python} n_pa` Pennsylvania stores and `{python} n_nj` New Jersey stores.
+
+---
+
+## Table 2 Replication: Summary Statistics
+
+Table 2 in Card & Krueger reports wave-1 store characteristics separately for NJ and PA. The goal is a balance check -- if the two groups look similar before the wage change, the parallel trends assumption is more credible.
+
+*Means with standard errors in parentheses. N = `{python} n_pa` (PA), `{python} n_nj` (NJ).*
+
+| Variable | Pennsylvania | New Jersey |
+|---|---|---|
+| FTE employment | `{python} t2_fte_pa` | `{python} t2_fte_nj` |
+| % full-time employees | `{python} t2_pctft_pa` | `{python} t2_pctft_nj` |
+| Starting wage ($/hr) | `{python} t2_wage_pa` | `{python} t2_wage_nj` |
+| Wage = $4.25 (share) | `{python} t2_w425_pa` | `{python} t2_w425_nj` |
+| Price of medium soda ($) | `{python} t2_soda_pa` | `{python} t2_soda_nj` |
+| Price of small fries ($) | `{python} t2_fry_pa` | `{python} t2_fry_nj` |
+| Hours open (weekday) | `{python} t2_hrs_pa` | `{python} t2_hrs_nj` |
+| % company-owned | `{python} t2_own_pa` | `{python} t2_own_nj` |
+
+The two states look similar across prices, hours, and ownership structure. The one notable difference is that NJ stores were more likely to be paying exactly \$4.25 before the hike -- which makes sense, since the increase was only binding in NJ.
+
+---
+
+## Table 3 Replication: The DiD Estimate
+
+Table 3 is the core of the paper. The before/after means for each state, their within-state changes, and the difference of those changes -- the DiD estimate.
+
+*Means with standard errors in parentheses.*
+
+| | Pennsylvania | New Jersey |
+|---|---|---|
+| FTE employment, wave 1 | `{python} f2(pa1_m)` `{python} fse2(pa1_se)` | `{python} f2(nj1_m)` `{python} fse2(nj1_se)` |
+| FTE employment, wave 2 | `{python} f2(pa2_m)` `{python} fse2(pa2_se)` | `{python} f2(nj2_m)` `{python} fse2(nj2_se)` |
+| Change (wave 2 -- wave 1) | `{python} f2(pa_chg)` `{python} fse2(pa_chg_se)` | `{python} f2(nj_chg)` `{python} fse2(nj_chg_se)` |
+
+**Difference-in-differences: `{python} f2(did)` (`{python} f2(did_se)`)**
+
+PA employment declined slightly between waves; NJ employment rose. The DiD estimate -- the causal effect attributable to the minimum wage increase -- is positive at approximately `{python} f2(did)` FTE workers per store. Under standard theory, employment should fall when you raise the minimum wage. Here it went the other direction.
+
+---
+
+## Table 4 Replication: OLS Regression
+
+Table 4 runs the same DiD as a regression, which lets Card & Krueger add controls for chain and ownership type. The model is:
+
+$$
+\Delta \text{FTE}_i = \alpha + \beta \cdot \mathbf{1}[\text{NJ}_i] + \varepsilon_i
+$$
+
+where the outcome is the change in FTE for store $i$ and the NJ coefficient is the DiD estimate. Column i has no controls; column ii adds chain dummies and ownership.
+
+*Dependent variable: change in FTE employment (wave 2 -- wave 1). Standard errors in parentheses. Omitted chain: Burger King.*
+
+| | Column i | Column ii |
+|---|---|---|
+| Intercept (PA mean change) | `{python} rc(m1, 'Intercept')` | `{python} rc(m2, 'Intercept')` |
+| New Jersey (DiD estimate) | `{python} rc(m1, 'nj')` | `{python} rc(m2, 'nj')` |
+| KFC | | `{python} rc(m2, 'chain_2')` |
+| Roy Rogers | | `{python} rc(m2, 'chain_3')` |
+| Wendy's | | `{python} rc(m2, 'chain_4')` |
+| Company-owned | | `{python} rc(m2, 'co_owned')` |
+| N | `{python} int(m1.nobs)` | `{python} int(m2.nobs)` |
+| R-squared | `{python} f"{m1.rsquared:.4f}"` | `{python} f"{m2.rsquared:.4f}"` |
+
+The intercept is the average employment change in PA, and the NJ coefficient is the same DiD estimate from Table 3. Adding chain and ownership controls barely moves the point estimate -- the result isn't driven by compositional differences between states.
+
+---
+
+## Visualizing Parallel Trends
+
+Card and Krueger present their results entirely in tables. The DiD logic is more intuitive visually. Below I plot average FTE employment in NJ and PA across both waves, alongside a counterfactual for NJ -- what employment would have looked like had NJ followed PA's trend instead of getting the wage increase.
+
+```{python}
+#| echo: false
+import matplotlib.pyplot as plt
+
+grp   = df_bal.groupby("nj")[["fte1","fte2"]].mean()
+pa_w1, pa_w2 = grp.loc[0, "fte1"], grp.loc[0, "fte2"]
+nj_w1, nj_w2 = grp.loc[1, "fte1"], grp.loc[1, "fte2"]
+nj_cf = nj_w1 + (pa_w2 - pa_w1)
+
+ACCENT = "#D4537E"
+GRAY   = "#6B7280"
+LIGHT  = "#D1D5DB"
+
+fig, ax = plt.subplots(figsize=(7.5, 4.8))
+waves = [1, 2]
+
+ax.plot(waves, [pa_w1, pa_w2], color=GRAY,   linewidth=2.2, marker="o", markersize=7, label="Pennsylvania (control)")
+ax.plot(waves, [nj_w1, nj_w2], color=ACCENT, linewidth=2.2, marker="o", markersize=7, label="New Jersey (treated)")
+ax.plot(waves, [nj_w1, nj_cf], color=ACCENT, linewidth=1.8, linestyle="--",
+        marker="o", markersize=7, markerfacecolor="white", markeredgecolor=ACCENT,
+        label="NJ counterfactual (parallel trends)")
+
+ax.annotate("",
+    xy=(2, nj_w2), xytext=(2, nj_cf),
+    arrowprops=dict(arrowstyle="<->", color=ACCENT, lw=1.6))
+ax.text(2.04, (nj_w2 + nj_cf) / 2,
+        f"DiD ≈ {nj_w2 - nj_cf:.2f} FTE",
+        va="center", color=ACCENT, fontsize=9.5)
+
+ax.axvline(x=1.5, color=LIGHT, linewidth=1.2, linestyle=":")
+ax.text(1.52, pa_w1 - 0.8, "NJ minimum wage\nincrease →", fontsize=8, color=GRAY)
+
+ax.set_xticks([1, 2])
+ax.set_xticklabels(["Wave 1\n(Feb/Mar 1992)", "Wave 2\n(Nov/Dec 1992)"], fontsize=10)
+ax.set_ylabel("Average FTE employment per store", fontsize=10)
+ax.set_title("Difference-in-Differences: NJ vs. PA Fast-Food Employment", fontsize=11, pad=12)
+ax.legend(fontsize=9, framealpha=0.9)
+ax.spines[["top", "right"]].set_visible(False)
+ax.set_xlim(0.7, 2.5)
+plt.tight_layout()
+plt.show()
+```
+
+The dashed line is the counterfactual: NJ employment declining slightly, in line with PA. Instead, NJ rose. The gap between the solid and dashed pink lines is the DiD estimate -- roughly `{python} f2(did)` FTE workers per store attributable to the minimum wage increase.
+
+The parallel trends assumption is exactly that -- an assumption. We can't prove NJ would have followed PA's path absent the policy. But the logic is defensible: the two states are adjacent, the fast-food industry was similarly structured in both, and Card and Krueger surveyed the same restaurants before and after, minimizing compositional noise.
+
+---
+
+## Takeaways
+
+The replication holds up. The three core numbers from Table 3 -- PA change ≈ `{python} f2(pa_chg)`, NJ change ≈ `{python} f2(nj_chg)`, DiD ≈ `{python} f2(did)` -- are consistent with the published paper, and the OLS regression in Table 4 confirms the same estimate with a standard error around 1.2.
+
+What makes this paper's design credible as a causal claim:
+
+- **Natural experiment**: NJ raised its minimum wage; PA didn't. Card and Krueger didn't have to randomize anything.
+- **DiD structure**: Differencing out time trends and pre-existing state differences isolates the policy effect, under the parallel trends assumption.
+- **Within-industry comparison**: Focusing on fast food reduces noise from industry mix. Both states had similar chains, similar ownership structures, and similar customer bases.
+
+The finding challenged the textbook model of competitive labor markets and kicked off a large literature on minimum wages, monopsony, and labor market imperfections. The methodology -- using geographic policy variation as a natural experiment -- became a template for empirical work in economics throughout the 1990s and beyond.
