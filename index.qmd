@@ -451,7 +451,7 @@ toc: false
   </div>
 
   <div class="timeline-entry">
-    <div class="tl-date">Apr 2025 – Present</div>
+    <div class="tl-date">Apr 2026 – Present</div>
     <div>
       <p class="tl-role">Marketing Analyst</p>
       <p class="tl-org">Mercury Insurance</p>

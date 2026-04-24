@@ -81,7 +81,21 @@ toc: false
         <td>Rent the Runway ML</td>
         <td class="archive-tags">NLP, scikit-learn</td>
       </tr>
+      <tr>
+        <td>Late 2025</td>
+        <td>Customer Targeting & Profit Optimization ML</td>
+        <td class="archive-tags">ML, scikit-learn, NLP, Analytics</td>
+      </tr>
+      <tr>
+        <td>Mid 2025</td>
+        <td>Snowflake GenAI & Wage Optimization Pipeline</td>
+        <td class="archive-tags">GenAI, Snowflake, Python, SQL</td>
+      </tr>
+      <tr>
+        <td>Mid 2025</td>
+        <td>Amazon Demand & Inventory Analytics Dashboard</td>
+        <td class="archive-tags">Tableau, BI, Data Viz, SQL</td>
+      </tr>
     </tbody>
   </table>
 </div>
-```
