@@ -481,6 +481,47 @@ ul.task-list li input[type="checkbox"] {
   font-size: 0.8rem;
 }
 
+.scroll-cue {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.scroll-cue a {
+  width: 54px;
+  height: 54px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background: var(--accent);
+  border: 2px solid var(--accent);
+  border-radius: 999px;
+  opacity: 0.95;
+  text-decoration: none;
+  box-shadow: 0 6px 18px rgba(212, 83, 126, 0.18);
+  transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;
+  animation: bounce-down 1.8s infinite;
+}
+
+.scroll-cue a:hover {
+  opacity: 1;
+  transform: translateY(2px);
+  box-shadow: 0 8px 20px rgba(212, 83, 126, 0.24);
+}
+
+.scroll-cue svg {
+  width: 24px;
+  height: 24px;
+}
+
+@keyframes bounce-down {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+
 @media (max-width: 680px) {
   .hero { grid-template-columns: 1fr; gap: 2rem; }
   .timeline-entry { grid-template-columns: 1fr; gap: 0.35rem; }
@@ -543,10 +584,18 @@ ul.task-list li input[type="checkbox"] {
     </div>
   </div>
 
+  <div class="scroll-cue">
+  <a href="#currently" aria-label="Scroll down to current work">
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m6 9 6 6 6-6"></path>
+    </svg>
+  </a>
+</div>
+
   <hr class="section-hr">
 
   <!-- CURRENTLY -->
-  <p class="section-label">Currently</p>
+  <p class="section-label" id="currently">Currently</p>
 
   <div class="now-card">
     <div class="now-header">
